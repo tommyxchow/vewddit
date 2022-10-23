@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import Header from './Header';
+import ImageDialog from './ImageDialog';
 
 type LayoutProps = {
   title: string;
@@ -16,7 +18,9 @@ export default function Layout({ title, description, children }: LayoutProps) {
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </Head>
 
-      <main className='min-h-screen'>{children}</main>
+      <Header />
+
+      <main className='min-h-screen px-4'>{children}</main>
     </>
   );
 }

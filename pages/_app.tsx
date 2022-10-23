@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider attribute='class' disableTransitionOnChange>
       <Component {...pageProps} />
     </ThemeProvider>
-  );}
+  );
+}
 
 export default MyApp;

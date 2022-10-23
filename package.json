@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@fontsource/figtree": "^4.5.1",
+    "@headlessui/react": "^1.7.3",
     "next": "latest",
     "next-themes": "^0.2.1",
     "react": "18.1.0",
