@@ -30,11 +30,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     const { subreddit } = params as { subreddit: string };
 
-    const client = new RedditClient();
-
-    await client.init();
-
-    const posts = await client.getPosts(subreddit, 20);
+    const client = await RedditClient.create();
+    const posts = await client.getPosts(subreddit);
 
     return {
       props: {

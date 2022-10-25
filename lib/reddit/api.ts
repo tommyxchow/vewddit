@@ -1,4 +1,4 @@
-import { RedditPost } from '../../types/reddit';
+import { RedditPost, SortTime, SortType } from '../../types/reddit';
 
 type AccessToken = {
   access_token: string;
@@ -8,9 +8,9 @@ type AccessToken = {
 };
 
 export class RedditClient {
-  private token?: string;
+  constructor(private token: string) {}
 
-  async init() {
+  static async create(): Promise<RedditClient> {
     const url = 'https://www.reddit.com/api/v1/access_token';
 
     const response = await fetch(url, {
@@ -27,40 +27,45 @@ export class RedditClient {
     if (response.ok) {
       const data: AccessToken = await response.json();
 
-      this.token = data.access_token;
+      return new RedditClient(data.access_token);
     } else {
-      throw Error(response.statusText);
+      throw Error('Failed to initialize Reddit client');
     }
   }
 
-  async get(endpoint: string) {
+  get(endpoint: string): Promise<Response> {
     const baseUrl = 'https://oauth.reddit.com';
     const url = baseUrl + endpoint;
 
-    const response = await fetch(url, {
+    return fetch(url, {
       headers: {
         Authorization: `bearer ${this.token}`,
       },
     });
+  }
+
+  async getPosts(
+    subreddit: string,
+    sort?: SortType,
+    time?: SortTime,
+    after?: string
+  ): Promise<RedditPost[]> {
+    const endpoint = `/r/${subreddit}${
+      sort ? `/${sort}` : ''
+    }?raw_json=1&t=${time}&after=${after}`;
+
+    const response = await this.get(endpoint);
 
     if (response.ok) {
       const data = await response.json();
 
-      return data;
+      const posts: RedditPost[] = data.data.children.map(
+        (post: { data: RedditPost }) => post.data
+      );
+
+      return posts;
     } else {
       throw Error(response.statusText);
     }
-  }
-
-  async getPosts(subreddit: string, limit: number) {
-    const endpoint = `/r/${subreddit}/hot?limit=${limit}&raw_json=1`;
-
-    const response = await this.get(endpoint);
-
-    const posts = response.data.children.map(
-      (post: { data: RedditPost }) => post.data
-    ) as RedditPost[];
-
-    return posts;
   }
 }

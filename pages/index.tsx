@@ -22,11 +22,8 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const client = new RedditClient();
-
-  await client.init();
-
-  const posts = await client.getPosts('earthporn', 50);
+  const reddit = await RedditClient.create();
+  const posts = await reddit.getPosts('earthporn');
 
   return {
     props: {

@@ -54,3 +54,6 @@ type RedditPostResolution = {
   width: number;
   height: number;
 };
+
+export type SortTime = 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
+export type SortType = 'hot' | 'new' | 'top';
