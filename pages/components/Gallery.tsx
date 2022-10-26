@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SubredditPosts } from '../../lib/reddit/api';
 import { hasProperMedia } from '../../lib/reddit/parse';
 import { SortOptions, TimeOptions } from '../../types/reddit';
@@ -54,6 +54,19 @@ export default function Gallery({
     }
   );
 
+  // Create an intersection observer to load more posts when the user scrolls to the bottom of the page.
+  useEffect(() => {
+    if (hasNextPage) {
+      const observer = new IntersectionObserver(
+        (entries) =>
+          entries[0].isIntersecting && !isFetchingNextPage && fetchNextPage()
+      );
+      observer.observe(document.getElementById('gallery-end')!);
+
+      return () => observer.disconnect();
+    }
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
   if (status === 'loading') return <p>Loading...</p>;
   if (status === 'error') return <p>Failed to get posts</p>;
 
@@ -61,6 +74,8 @@ export default function Gallery({
     .map((page) => page.posts)
     .flat()
     .filter(hasProperMedia);
+
+  if (postsWithMedia.length === 0 && !hasNextPage) return <p>No posts found</p>;
 
   return (
     <>
@@ -89,10 +104,12 @@ export default function Gallery({
           ))}
         </div>
 
-        {isFetching ? (
-          <p>Fetching...</p>
-        ) : (
-          <button onClick={() => fetchNextPage()}>Get more</button>
+        {hasNextPage && (
+          <div id='gallery-end'>
+            {isFetchingNextPage && (
+              <p className='animate-pulse'>loading more posts...</p>
+            )}
+          </div>
         )}
       </div>
     </>
