@@ -17,7 +17,7 @@ export default function Header() {
   }
 
   return (
-    <header className='px-4 pt-8 pb-4'>
+    <header className='px-4 pt-8 pb-4 md:px-8'>
       <Link href='/'>
         <a className='flex w-fit hover:underline'>
           <h1 className='text-3xl font-bold'>vewddit</h1>

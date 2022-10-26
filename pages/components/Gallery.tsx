@@ -78,21 +78,23 @@ export default function Gallery({
         />
       )}
 
-      <div className='grid gap-2 py-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6'>
-        {postsWithMedia.map((post, index) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            onClick={() => handlePostClick(index)}
-          />
-        ))}
-      </div>
+      <div className='flex flex-col items-center gap-8'>
+        <div className='grid gap-2 sm:grid-cols-2 md:grid-cols-3'>
+          {postsWithMedia.map((post, index) => (
+            <PostCard
+              key={post.id}
+              post={post}
+              onClick={() => handlePostClick(index)}
+            />
+          ))}
+        </div>
 
-      {isFetching ? (
-        <p>Fetching...</p>
-      ) : (
-        <button onClick={() => fetchNextPage()}>Get more</button>
-      )}
+        {isFetching ? (
+          <p>Fetching...</p>
+        ) : (
+          <button onClick={() => fetchNextPage()}>Get more</button>
+        )}
+      </div>
     </>
   );
 }

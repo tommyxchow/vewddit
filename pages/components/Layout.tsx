@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Footer from './Footer';
 import Header from './Header';
 import ImageDialog from './ImageDialog';
 
@@ -20,7 +21,9 @@ export default function Layout({ title, description, children }: LayoutProps) {
 
       <Header />
 
-      <main className='min-h-screen px-4'>{children}</main>
+      <main className='min-h-screen px-4 md:px-8'>{children}</main>
+
+      <Footer />
     </>
   );
 }
