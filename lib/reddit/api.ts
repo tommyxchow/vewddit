@@ -1,10 +1,15 @@
-import { RedditPost, SortTime, SortType } from '../../types/reddit';
+import { RedditPost, TimeOptions, SortOptions } from '../../types/reddit';
 
 type AccessToken = {
   access_token: string;
   token_type: string;
   expires_in: number;
   scope: string;
+};
+
+export type SubredditPosts = {
+  after: string;
+  posts: RedditPost[];
 };
 
 export class RedditClient {
@@ -46,10 +51,10 @@ export class RedditClient {
 
   async getPosts(
     subreddit: string,
-    sort?: SortType,
-    time?: SortTime,
+    sort?: SortOptions,
+    time?: TimeOptions,
     after?: string
-  ): Promise<RedditPost[]> {
+  ): Promise<SubredditPosts> {
     const endpoint = `/r/${subreddit}${
       sort ? `/${sort}` : ''
     }?raw_json=1&t=${time}&after=${after}`;
@@ -59,11 +64,13 @@ export class RedditClient {
     if (response.ok) {
       const data = await response.json();
 
+      const after: string = data.data.after;
+
       const posts: RedditPost[] = data.data.children.map(
         (post: { data: RedditPost }) => post.data
       );
 
-      return posts;
+      return { after, posts };
     } else {
       throw Error(response.statusText);
     }

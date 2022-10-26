@@ -1,17 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { RedditClient } from '../../../../../lib/reddit/api';
+import { RedditClient, SubredditPosts } from '../../../../../lib/reddit/api';
 import ErrorMessage from '../../../../../types/error';
-import { RedditPost } from '../../../../../types/reddit';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<RedditPost[] | ErrorMessage>
+  res: NextApiResponse<SubredditPosts | ErrorMessage>
 ) {
-  const { subreddit } = req.query;
+  const { subreddit, after } = req.query;
 
   try {
     const reddit = await RedditClient.create();
-    const posts = await reddit.getPosts(subreddit as string);
+    const posts = await reddit.getPosts(
+      subreddit as string,
+      undefined,
+      undefined,
+      after as string
+    );
 
     res.status(200).json(posts);
   } catch {

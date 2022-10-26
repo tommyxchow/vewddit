@@ -55,5 +55,15 @@ type RedditPostResolution = {
   height: number;
 };
 
-export type SortTime = 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
-export type SortType = 'hot' | 'new' | 'top';
+export const sortOptions = ['hot', 'new', 'top', 'rising'] as const;
+export type SortOptions = typeof sortOptions[number];
+
+export const timeOptions = [
+  'hour',
+  'day',
+  'week',
+  'month',
+  'year',
+  'all',
+] as const;
+export type TimeOptions = typeof timeOptions[number];

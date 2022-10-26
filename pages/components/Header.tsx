@@ -1,7 +1,8 @@
-import { useRouter } from 'next/router';
-import { HiChevronRight } from 'react-icons/hi';
-import { FormEvent } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FormEvent } from 'react';
+import { HiChevronRight } from 'react-icons/hi';
+import { sortOptions, timeOptions } from '../../types/reddit';
 
 export default function Header() {
   const router = useRouter();
@@ -10,7 +11,9 @@ export default function Header() {
     event.preventDefault();
     const subreddit = event.currentTarget.subreddit.value;
     const sort = event.currentTarget.sort.value;
-    router.push(`/r/${subreddit}`);
+    const time = event.currentTarget.time.value;
+
+    router.push(`/r/${subreddit}/${sort}?t=${time}`);
   }
 
   return (
@@ -35,9 +38,19 @@ export default function Header() {
         />
 
         <select id='sort' className='h-8 rounded-lg py-1 pl-2'>
-          <option value='hot'>hot</option>
-          <option value='top'>top</option>
-          <option value='new'>new</option>
+          {sortOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+
+        <select id='time' className='h-8 rounded-lg py-1 pl-2'>
+          {timeOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
         </select>
 
         <button className='h-8 w-12 self-center rounded-lg bg-neutral-700 px-2 py-1'>

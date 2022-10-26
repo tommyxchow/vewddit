@@ -26,8 +26,6 @@ export function parseRedditPostMedia(post: RedditPost): PostMedia | null {
       };
 
     case 'rich:video':
-      console.log(post.media?.oembed?.thumbnail_url!);
-
       return {
         hint: 'rich:video',
         thumbnailUrl: post.preview?.images[0].resolutions.at(-1)?.url!,

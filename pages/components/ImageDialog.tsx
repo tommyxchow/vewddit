@@ -18,8 +18,6 @@ export default function ImageDialog({
 }: ImageDialogProps) {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      console.log('press');
-
       if (event.key === 'ArrowLeft') {
         goToPreviousImages();
       } else if (event.key === 'ArrowRight') {

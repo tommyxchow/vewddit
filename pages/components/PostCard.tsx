@@ -1,5 +1,5 @@
-import { RedditPost } from '../../types/reddit';
 import { parseRedditPostMedia } from '../../lib/reddit/parse';
+import { RedditPost } from '../../types/reddit';
 
 type PostCardProps = {
   post: RedditPost;
@@ -16,8 +16,9 @@ export default function PostCard({ post, onClick }: PostCardProps) {
     >
       <picture>
         <img
+          loading='lazy'
           className='h-full w-full object-cover'
-          src={postMedia?.thumbnailUrl!}
+          src={postMedia?.thumbnailUrl}
           alt={post.title}
         />
       </picture>

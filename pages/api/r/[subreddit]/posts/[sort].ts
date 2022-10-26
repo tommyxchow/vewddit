@@ -1,23 +1,22 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { RedditClient } from '../../../../../lib/reddit/api';
+import { RedditClient, SubredditPosts } from '../../../../../lib/reddit/api';
 import ErrorMessage from '../../../../../types/error';
-import { RedditPost, SortTime, SortType } from '../../../../../types/reddit';
+import { TimeOptions, SortOptions } from '../../../../../types/reddit';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<RedditPost[] | ErrorMessage>
+  res: NextApiResponse<SubredditPosts | ErrorMessage>
 ) {
-  const { subreddit, sort, t } = req.query;
-
-  console.log(req.query);
+  const { subreddit, sort, t, after } = req.query;
 
   try {
     const reddit = await RedditClient.create();
 
     const posts = await reddit.getPosts(
       subreddit as string,
-      sort as SortType,
-      t as SortTime
+      sort as SortOptions,
+      t as TimeOptions,
+      after as string
     );
 
     res.status(200).json(posts);

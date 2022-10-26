@@ -1,20 +1,19 @@
 import type { GetStaticProps, NextPage } from 'next';
-import { RedditClient } from '../lib/reddit/api';
-import { RedditPost } from '../types/reddit';
+import { RedditClient, SubredditPosts } from '../lib/reddit/api';
 import Gallery from './components/Gallery';
 import Layout from './components/Layout';
 
 type HomeProps = {
-  posts: RedditPost[];
+  subredditPosts: SubredditPosts;
 };
 
-const Home: NextPage<HomeProps> = ({ posts }) => {
+const Home: NextPage<HomeProps> = ({ subredditPosts }) => {
   return (
     <Layout
       title='vewddit'
       description="anonymously browse any subreddit's images, videos, and GIFs!"
     >
-      <Gallery posts={posts} />
+      <Gallery subreddit='earthporn' initialData={subredditPosts} />
     </Layout>
   );
 };
@@ -23,11 +22,12 @@ export default Home;
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const reddit = await RedditClient.create();
-  const posts = await reddit.getPosts('earthporn');
+  const subredditPosts = await reddit.getPosts('earthporn');
 
   return {
     props: {
-      posts,
+      subredditPosts,
     },
+    revalidate: 60,
   };
 };
