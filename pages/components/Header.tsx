@@ -1,19 +1,21 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { HiChevronRight } from 'react-icons/hi';
-import { sortOptions, timeOptions } from '../../types/reddit';
+import { SortOptions, sortOptions, timeOptions } from '../../types/reddit';
 
 export default function Header() {
   const router = useRouter();
+
+  const [selectedSort, setSelectedSort] = useState<SortOptions>('hot');
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const subreddit = event.currentTarget.subreddit.value;
     const sort = event.currentTarget.sort.value;
-    const time = event.currentTarget.time.value;
+    const time = selectedSort == 'top' && event.currentTarget.time.value;
 
-    router.push(`/r/${subreddit}/${sort}?t=${time}`);
+    router.push(`/r/${subreddit}/${sort}${time ? `?t=${time}` : ''}`);
   }
 
   return (
@@ -37,7 +39,13 @@ export default function Header() {
           required
         />
 
-        <select id='sort' className='h-8 rounded-lg py-1 pl-2'>
+        <select
+          id='sort'
+          className='h-8 rounded-lg py-1 pl-2'
+          onChange={(event) =>
+            setSelectedSort(event.currentTarget.value as SortOptions)
+          }
+        >
           {sortOptions.map((option) => (
             <option key={option} value={option}>
               {option}
@@ -45,13 +53,15 @@ export default function Header() {
           ))}
         </select>
 
-        <select id='time' className='h-8 rounded-lg py-1 pl-2'>
-          {timeOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        {selectedSort === 'top' && (
+          <select id='time' className='h-8 rounded-lg py-1 pl-2'>
+            {timeOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        )}
 
         <button className='h-8 w-12 self-center rounded-lg bg-neutral-700 px-2 py-1'>
           <HiChevronRight aria-label='Search' className='m-auto text-lg' />{' '}
