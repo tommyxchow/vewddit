@@ -20,7 +20,8 @@ export default async function handler(
     );
 
     res.status(200).json(posts);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Failed to get posts' });
   }
 }

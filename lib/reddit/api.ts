@@ -1,4 +1,9 @@
-import { RedditPost, TimeOptions, SortOptions } from '../../types/reddit';
+import {
+  RedditPost,
+  TimeOptions,
+  SortOptions,
+  RedditPostSchema,
+} from '../../types/reddit';
 
 type AccessToken = {
   access_token: string;
@@ -67,7 +72,7 @@ export class RedditClient {
       const after: string = data.data.after;
 
       const posts: RedditPost[] = data.data.children.map(
-        (post: { data: RedditPost }) => post.data
+        (post: { data: RedditPost }) => RedditPostSchema.parse(post.data)
       );
 
       return { after, posts };

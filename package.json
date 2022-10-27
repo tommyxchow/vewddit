@@ -14,7 +14,8 @@
     "next-themes": "^0.2.1",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-icons": "^4.6.0"
+    "react-icons": "^4.6.0",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/node": "17.0.35",
