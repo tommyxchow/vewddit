@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { useEffect } from 'react';
-import { parseRedditPostMedia } from '../../lib/reddit/parse';
-import { RedditPost } from '../../types/reddit';
+import { parseRedditPostMedia } from '../lib/reddit/parse';
+import { RedditPost } from '../types/reddit';
 
 type ImageDialogProps = {
   post: RedditPost;

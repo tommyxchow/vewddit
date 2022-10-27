@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { HiChevronRight } from 'react-icons/hi';
-import { SortOptions, sortOptions, timeOptions } from '../../types/reddit';
+import { SortOptions, sortOptions, timeOptions } from '../types/reddit';
 
 export default function Header() {
   const router = useRouter();

@@ -1,5 +1,5 @@
-import { parseRedditPostMedia } from '../../lib/reddit/parse';
-import { RedditPost } from '../../types/reddit';
+import { parseRedditPostMedia } from '../lib/reddit/parse';
+import { RedditPost } from '../types/reddit';
 
 type PostCardProps = {
   post: RedditPost;
