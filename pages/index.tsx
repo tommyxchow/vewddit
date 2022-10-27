@@ -13,7 +13,7 @@ const Home: NextPage<HomeProps> = ({ subredditPosts }) => {
       title='vewddit'
       description="anonymously browse any subreddit's images, videos, and GIFs!"
     >
-      <Gallery subreddit='earthporn' initialData={subredditPosts} />
+      <Gallery subreddit='earthporn' initialPosts={subredditPosts} />
     </Layout>
   );
 };

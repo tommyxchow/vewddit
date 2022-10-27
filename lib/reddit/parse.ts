@@ -1,6 +1,6 @@
 import { RedditPost } from '../../types/reddit';
 
-export function hasProperMedia(post: RedditPost) {
+export function hasProperMedia(post: RedditPost): boolean {
   if (post.post_hint === 'link' && !post.media_embed?.content) return false;
 
   return (

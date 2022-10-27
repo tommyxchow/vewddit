@@ -6,7 +6,6 @@ export type RedditPost = {
   upvote_ratio: number;
   ups: number;
   permalink: string;
-  is_self: boolean;
   stickied: boolean;
   url: string;
   thumbnail?: string;

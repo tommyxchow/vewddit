@@ -8,14 +8,14 @@ import PostCard from './PostCard';
 
 type GalleryProps = {
   subreddit: string;
-  initialData?: SubredditPosts;
+  initialPosts?: SubredditPosts;
   sort?: SortOptions;
   time?: TimeOptions;
 };
 
 export default function Gallery({
   subreddit,
-  initialData,
+  initialPosts,
   sort,
   time,
 }: GalleryProps) {
@@ -46,9 +46,9 @@ export default function Gallery({
     ['subredditPosts', subreddit, sort, time],
     fetchPosts,
     {
-      initialData: initialData && {
+      initialData: initialPosts && {
         pageParams: [undefined],
-        pages: [initialData],
+        pages: [initialPosts],
       },
       getNextPageParam: (lastPage) => lastPage.after,
     }
