@@ -82,10 +82,10 @@ export default function Gallery({
       {showImageDialog && (
         <ImageDialog
           post={postsWithMedia[selectedPostIndex]}
-          goToPreviousImages={() =>
+          goToPreviousPost={() =>
             selectedPostIndex > 0 && setSelectedPostIndex(selectedPostIndex - 1)
           }
-          gotoNextImage={() =>
+          goToNextPost={() =>
             selectedPostIndex < postsWithMedia.length - 1 &&
             setSelectedPostIndex(selectedPostIndex + 1)
           }

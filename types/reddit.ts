@@ -6,6 +6,13 @@ export const RedditPostResolutionSchema = z.object({
   height: z.number(),
 });
 
+export const RedditPostMediaMetadataSchema = z.object({
+  p: z.array(z.object({ u: z.string() })),
+  s: z.object({
+    u: z.string(),
+  }),
+});
+
 export const RedditPostSchema = z.object({
   id: z.string(),
   subreddit: z.string(),
@@ -18,6 +25,19 @@ export const RedditPostSchema = z.object({
   url: z.string(),
   thumbnail: z.string(),
   post_hint: z.string().optional(),
+  is_gallery: z.boolean().optional(),
+  media_metadata: z
+    .record(z.string(), RedditPostMediaMetadataSchema)
+    .optional(),
+  gallery_data: z
+    .object({
+      items: z.array(
+        z.object({
+          media_id: z.string(),
+        })
+      ),
+    })
+    .optional(),
   preview: z
     .object({
       images: z.array(
