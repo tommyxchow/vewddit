@@ -100,27 +100,30 @@ export default function ImageDialog({
     >
       <Dialog.Panel>
         <button
-          className='absolute top-0 right-0 m-2 rounded-full bg-black/50 p-4'
+          className='absolute top-0 right-0 m-2 rounded-full bg-black/50 p-2 md:p-4'
           aria-label='Close dialog'
+          onClick={onClose}
         >
-          <HiXMark className='text-3xl' onClick={onClose} />
+          <HiXMark className='text-2xl md:text-3xl' />
         </button>
 
         {imageIndex > 0 && (
           <button
-            className='absolute left-0 top-1/2 ml-2 -translate-y-1/2 rounded-full bg-black/50 p-4'
+            className='absolute left-0 top-1/2 ml-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
             aria-label='Go to previous image'
+            onClick={goToPreviousImage}
           >
-            <HiArrowLeft className='text-3xl' onClick={goToPreviousImage} />
+            <HiArrowLeft className='text-2xl md:text-3xl' />
           </button>
         )}
 
         {imageIndex < postMedia?.mediaUrls.length! - 1 && (
           <button
-            className='absolute top-1/2 right-0 mr-2 -translate-y-1/2 rounded-full bg-black/50 p-4'
+            className='absolute top-1/2 right-0 mr-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
             aria-label='Go to next image'
+            onClick={goToNextImage}
           >
-            <HiArrowRight className='text-3xl' onClick={goToNextImage} />
+            <HiArrowRight className='text-2xl md:text-3xl' />
           </button>
         )}
 
@@ -131,7 +134,7 @@ export default function ImageDialog({
             target='_blank'
             rel='noreferrer'
           >
-            <h1>{post.title}</h1>
+            <h1 className='font-medium md:text-lg'>{post.title}</h1>
           </a>
         </div>
 
