@@ -43,16 +43,17 @@ export default function Form() {
         ))}
       </select>
 
-      {selectedSort === 'top' && (
-        <select id='time' className='h-8 rounded-lg py-1 pl-2'>
-          {timeOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      )}
-
+      <select
+        id='time'
+        className='h-8 rounded-lg py-1 pl-2'
+        disabled={selectedSort !== 'top'}
+      >
+        {timeOptions.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
       <button className='h-8 w-12 self-center rounded-lg bg-neutral-700 px-2 py-1'>
         <HiChevronRight aria-label='Search' className='m-auto text-lg' />{' '}
       </button>
