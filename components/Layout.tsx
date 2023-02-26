@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import Footer from './Footer';
+import Form from './Form';
 import Header from './Header';
-import ImageDialog from './ImageDialog';
 
 type LayoutProps = {
   title: string;
@@ -21,9 +20,9 @@ export default function Layout({ title, description, children }: LayoutProps) {
 
       <Header />
 
-      <main className='min-h-screen px-4 md:px-8'>{children}</main>
+      <Form />
 
-      <Footer />
+      <main className='min-h-screen'>{children}</main>
     </>
   );
 }

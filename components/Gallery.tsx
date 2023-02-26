@@ -54,13 +54,13 @@ export default function Gallery({
     }
   );
 
-  // Create an intersection observer to load more posts when the user scrolls to the bottom of the page.
+  // Create an intersection observer to load more posts when the user scrolls to
+  // the bottom of the page.
   useEffect(() => {
     if (hasNextPage) {
-      const observer = new IntersectionObserver(
-        (entries) =>
-          entries[0].isIntersecting && !isFetchingNextPage && fetchNextPage()
-      );
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !isFetchingNextPage) fetchNextPage();
+      });
       observer.observe(document.getElementById('gallery-end')!);
 
       return () => observer.disconnect();
@@ -93,7 +93,7 @@ export default function Gallery({
         />
       )}
 
-      <div className='flex flex-col items-center gap-8'>
+      <div className='flex flex-col items-center gap-8 px-4'>
         <div className='grid gap-2 sm:grid-cols-2 md:grid-cols-3'>
           {postsWithMedia.map((post, index) => (
             <PostCard
@@ -105,7 +105,7 @@ export default function Gallery({
         </div>
 
         {hasNextPage && (
-          <div id='gallery-end'>
+          <div id='gallery-end' className='pb-8'>
             {isFetchingNextPage && (
               <p className='animate-pulse'>loading more posts...</p>
             )}
