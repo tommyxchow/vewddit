@@ -3,6 +3,7 @@ import '@fontsource/figtree/500.css';
 import '@fontsource/figtree/600.css';
 import '@fontsource/figtree/700.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import '../styles/globals.css';
@@ -15,6 +16,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute='class' disableTransitionOnChange>
         <Component {...pageProps} />
       </ThemeProvider>
+
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
