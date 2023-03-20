@@ -18,7 +18,7 @@ export default function Form() {
 
   return (
     <form
-      className='sticky inset-0 flex items-baseline gap-1 p-4 backdrop-blur'
+      className='sticky inset-0 z-10 flex items-baseline gap-1 p-4 backdrop-blur'
       onSubmit={handleSubmit}
     >
       <p className='font-medium'>r/</p>
