@@ -93,7 +93,7 @@ export default function Gallery({
       )}
 
       <div className='flex flex-col items-center gap-8 px-4'>
-        <div className='grid gap-2 sm:grid-cols-2 md:grid-cols-3'>
+        <div className='lg:grid-col-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {postsWithMedia.map((post, index) => (
             <PostCard
               key={post.id}
