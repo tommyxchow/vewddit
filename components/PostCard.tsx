@@ -27,7 +27,7 @@ export default function PostCard({ post, onClick }: PostCardProps) {
       </button>
 
       <div className='p-2'>
-        <h2 className='font-semibold'>
+        <h2 className='line-clamp-1 font-semibold'>
           <a
             className='hover:underline'
             target='_blank'
