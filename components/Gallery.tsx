@@ -27,11 +27,11 @@ export default function Gallery({
     setShowImageDialog(true);
   }
 
-  const fetchPosts = async ({ pageParam: after = undefined }) =>
+  const fetchPosts = async ({ pageParam: after }: { pageParam: unknown }) =>
     fetch(
       `/api/r/${subreddit}/posts${
         sort ? `/${sort}` : ''
-      }?raw_json=1&t=${time}&after=${after}`
+      }?raw_json=1&t=${time}&after=${after}`,
     ).then((res) => res.json());
 
   const {
@@ -42,17 +42,16 @@ export default function Gallery({
     isFetching,
     isFetchingNextPage,
     status,
-  } = useInfiniteQuery<SubredditPosts>(
-    ['subredditPosts', subreddit, sort, time],
-    fetchPosts,
-    {
-      initialData: initialPosts && {
-        pageParams: [undefined],
-        pages: [initialPosts],
-      },
-      getNextPageParam: (lastPage) => lastPage.after,
-    }
-  );
+  } = useInfiniteQuery<SubredditPosts>({
+    queryKey: ['subredditPosts', subreddit, sort, time],
+    queryFn: fetchPosts,
+    initialPageParam: null,
+    initialData: initialPosts && {
+      pageParams: [null],
+      pages: [initialPosts],
+    },
+    getNextPageParam: (lastPage) => lastPage.after,
+  });
 
   // Create an intersection observer to load more posts when the user scrolls to
   // the bottom of the page.
@@ -67,7 +66,7 @@ export default function Gallery({
     }
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  if (status === 'loading') return <p>Loading...</p>;
+  if (status === 'pending') return <p>Loading...</p>;
   if (status === 'error') return <p>Failed to get posts</p>;
 
   const postsWithMedia = data.pages
