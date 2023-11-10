@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+        sans: ['var(--font-default)', ...defaultTheme.fontFamily.sans],
       },
     },
   },
