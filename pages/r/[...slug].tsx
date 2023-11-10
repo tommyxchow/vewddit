@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Gallery from '../../components/Gallery';
 import Layout from '../../components/Layout';
 import { RedditClient, SubredditPosts } from '../../lib/reddit/api';
-import { RedditPost, SortOptions, TimeOptions } from '../../types/reddit';
+import { SortOptions, TimeOptions } from '../../types/reddit';
 
 type SubredditProps = {
   subreddit: string;
@@ -21,7 +21,7 @@ export default function Subreddit({
 
   return (
     <Layout
-      title={`r/${subreddit} | vewddit`}
+      title={`r/${subreddit} | Vewddit`}
       description={'Images for ' + subreddit}
     >
       <Gallery

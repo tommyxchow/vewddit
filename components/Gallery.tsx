@@ -106,7 +106,7 @@ export default function Gallery({
         {hasNextPage && (
           <div id='gallery-end' className='pb-8'>
             {isFetchingNextPage && (
-              <p className='animate-pulse'>loading more posts...</p>
+              <p className='animate-pulse'>Getting more posts...</p>
             )}
           </div>
         )}
