@@ -1,7 +1,7 @@
+import { SortOptions, sortOptions, timeOptions } from '@/types/reddit';
 import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { HiChevronRight } from 'react-icons/hi2';
-import { SortOptions, sortOptions, timeOptions } from '../types/reddit';
 
 export default function Form() {
   const router = useRouter();

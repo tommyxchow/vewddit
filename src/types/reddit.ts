@@ -34,7 +34,7 @@ export const RedditPostSchema = z.object({
       items: z.array(
         z.object({
           media_id: z.string(),
-        })
+        }),
       ),
     })
     .optional(),
@@ -58,7 +58,7 @@ export const RedditPostSchema = z.object({
               })
               .optional(),
           }),
-        })
+        }),
       ),
       reddit_video_preview: z
         .object({
@@ -96,7 +96,7 @@ export const RedditPostSchema = z.object({
 export type RedditPost = z.infer<typeof RedditPostSchema>;
 
 export const sortOptions = ['hot', 'new', 'top', 'rising'] as const;
-export type SortOptions = typeof sortOptions[number];
+export type SortOptions = (typeof sortOptions)[number];
 
 export const timeOptions = [
   'hour',
@@ -106,4 +106,4 @@ export const timeOptions = [
   'year',
   'all',
 ] as const;
-export type TimeOptions = typeof timeOptions[number];
+export type TimeOptions = (typeof timeOptions)[number];

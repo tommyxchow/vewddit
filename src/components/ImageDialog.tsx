@@ -1,8 +1,8 @@
+import { parseRedditPostMedia } from '@/lib/reddit/parse';
+import { RedditPost } from '@/types/reddit';
 import { Dialog } from '@headlessui/react';
 import { useCallback, useEffect, useState } from 'react';
 import { HiArrowLeft, HiArrowRight, HiXMark } from 'react-icons/hi2';
-import { parseRedditPostMedia } from '../lib/reddit/parse';
-import { RedditPost } from '../types/reddit';
 
 type ImageDialogProps = {
   post: RedditPost;
@@ -100,7 +100,7 @@ export default function ImageDialog({
     >
       <Dialog.Panel>
         <button
-          className='absolute top-0 right-0 m-2 rounded-full bg-black/50 p-2 md:p-4'
+          className='absolute right-0 top-0 m-2 rounded-full bg-black/50 p-2 md:p-4'
           aria-label='Close dialog'
           onClick={onClose}
         >
@@ -119,7 +119,7 @@ export default function ImageDialog({
 
         {imageIndex < postMedia?.mediaUrls.length! - 1 && (
           <button
-            className='absolute top-1/2 right-0 mr-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
+            className='absolute right-0 top-1/2 mr-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
             aria-label='Go to next image'
             onClick={goToNextImage}
           >

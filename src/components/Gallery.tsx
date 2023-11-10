@@ -1,8 +1,8 @@
+import { SubredditPosts } from '@/lib/reddit/api';
+import { hasProperMedia } from '@/lib/reddit/parse';
+import { SortOptions, TimeOptions } from '@/types/reddit';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { SubredditPosts } from '../lib/reddit/api';
-import { hasProperMedia } from '../lib/reddit/parse';
-import { SortOptions, TimeOptions } from '../types/reddit';
 import ImageDialog from './ImageDialog';
 import PostCard from './PostCard';
 

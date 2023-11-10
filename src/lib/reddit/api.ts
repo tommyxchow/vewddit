@@ -3,7 +3,7 @@ import {
   RedditPostSchema,
   SortOptions,
   TimeOptions,
-} from '../../types/reddit';
+} from '@/types/reddit';
 
 type AccessToken = {
   access_token: string;

@@ -1,7 +1,7 @@
+import Gallery from '@/components/Gallery';
+import Layout from '@/components/Layout';
+import { RedditClient, SubredditPosts } from '@/lib/reddit/api';
 import type { GetStaticProps, NextPage } from 'next';
-import Gallery from '../components/Gallery';
-import Layout from '../components/Layout';
-import { RedditClient, SubredditPosts } from '../lib/reddit/api';
 
 type HomeProps = {
   subredditPosts: SubredditPosts;

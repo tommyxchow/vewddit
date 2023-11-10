@@ -1,4 +1,4 @@
-import { RedditPost } from '../../types/reddit';
+import { RedditPost } from '@/types/reddit';
 
 export function hasProperMedia(post: RedditPost): boolean {
   if (post.is_gallery) return true;
