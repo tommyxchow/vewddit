@@ -1,8 +1,8 @@
 import {
   RedditPost,
-  TimeOptions,
-  SortOptions,
   RedditPostSchema,
+  SortOptions,
+  TimeOptions,
 } from '../../types/reddit';
 
 type AccessToken = {
@@ -27,7 +27,7 @@ export class RedditClient {
       method: 'POST',
       headers: {
         Authorization: `Basic ${Buffer.from(
-          process.env.REDDIT_CLIENT_ID + ':' + process.env.REDDIT_SECRET
+          process.env.REDDIT_CLIENT_ID + ':' + process.env.REDDIT_SECRET,
         ).toString('base64')}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -58,7 +58,7 @@ export class RedditClient {
     subreddit: string,
     sort?: SortOptions,
     time?: TimeOptions,
-    after?: string
+    after?: string,
   ): Promise<SubredditPosts> {
     const endpoint = `/r/${subreddit}${
       sort ? `/${sort}` : ''
@@ -72,7 +72,7 @@ export class RedditClient {
       const after: string = data.data.after;
 
       const posts: RedditPost[] = data.data.children.map(
-        (post: { data: RedditPost }) => RedditPostSchema.parse(post.data)
+        (post: { data: RedditPost }) => RedditPostSchema.parse(post.data),
       );
 
       return { after, posts };
