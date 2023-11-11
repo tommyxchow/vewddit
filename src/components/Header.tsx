@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className='px-4 pt-8'>
-      <Link href='/'>
-        <h1 className='flex w-fit text-3xl font-bold hover:underline md:text-4xl'>
+    <header className='flex flex-col gap-2 px-4 pt-8'>
+      <Link className='w-fit' href='/'>
+        <h1 className='text-3xl font-bold hover:underline md:text-4xl'>
           Vewddit
         </h1>
       </Link>
