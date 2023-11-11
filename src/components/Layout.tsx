@@ -20,7 +20,7 @@ export default function Layout({ title, description, children }: LayoutProps) {
 
       <Header />
 
-      <div className='sticky inset-0 bg-black bg-opacity-50 backdrop-blur'>
+      <div className='sticky inset-0 z-40 bg-black bg-opacity-50 backdrop-blur'>
         <SearchBar />
       </div>
 
