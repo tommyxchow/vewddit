@@ -93,12 +93,14 @@ export default function SearchBar() {
             />
           </div>
 
-          <Button type='submit'>Submit</Button>
+          <Button className='w-24' type='submit'>
+            Submit
+          </Button>
         </form>
       </Form>
 
-      <div className='z-50 flex items-baseline gap-2'>
-        <h2 className='font-semibold'>
+      <div className='z-50 flex items-center justify-between gap-2'>
+        <h2 className='truncate text-xl font-semibold sm:text-3xl'>
           <a
             className='hover:underline'
             target='_blank'
@@ -107,33 +109,36 @@ export default function SearchBar() {
             r/{currentSubreddit}
           </a>{' '}
         </h2>
-        <Select value={sort} onValueChange={onSortChange}>
-          <SelectTrigger className='w-24' defaultValue='hot'>
-            <SelectValue placeholder='Sort' />
-          </SelectTrigger>
-          <SelectContent>
-            {sortOptions.map((sort) => (
-              <SelectItem key={sort} value={sort}>
-                {sort}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
 
-        {sort === 'Top' && (
-          <Select value={time} onValueChange={onTimeChange}>
-            <SelectTrigger className='w-24'>
-              <SelectValue placeholder='Time' />
+        <div className='flex gap-2'>
+          <Select value={sort} onValueChange={onSortChange}>
+            <SelectTrigger className='w-24 bg-black' defaultValue='hot'>
+              <SelectValue placeholder='Sort' />
             </SelectTrigger>
             <SelectContent>
-              {timeOptions.map((time) => (
-                <SelectItem className='capitalize' key={time} value={time}>
-                  {time}
+              {sortOptions.map((sort) => (
+                <SelectItem key={sort} value={sort}>
+                  {sort}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-        )}
+
+          {sort === 'Top' && (
+            <Select value={time} onValueChange={onTimeChange}>
+              <SelectTrigger className='w-24 bg-black'>
+                <SelectValue placeholder='Time' />
+              </SelectTrigger>
+              <SelectContent>
+                {timeOptions.map((time) => (
+                  <SelectItem className='capitalize' key={time} value={time}>
+                    {time}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        </div>
       </div>
     </div>
   );
