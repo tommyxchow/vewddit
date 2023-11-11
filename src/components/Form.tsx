@@ -81,7 +81,7 @@ export default function SearchBar() {
                     <Input
                       className='rounded-lg border-2 bg-black'
                       aria-label='Subreddit name'
-                      placeholder='earthporn'
+                      placeholder='Enter a subreddit name'
                       type='search'
                       required
                       aria-describedby={undefined}
