@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Form from './Form';
+import SearchBar from './Form';
 import Header from './Header';
 
 type LayoutProps = {
@@ -20,7 +20,9 @@ export default function Layout({ title, description, children }: LayoutProps) {
 
       <Header />
 
-      <Form />
+      <div className='sticky inset-0 bg-black bg-opacity-50 backdrop-blur'>
+        <SearchBar />
+      </div>
 
       <main className='min-h-screen'>{children}</main>
     </>

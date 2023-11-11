@@ -1,62 +1,140 @@
-import { SortOptions, sortOptions, timeOptions } from '@/types/reddit';
+import {
+  SortOptions,
+  TimeOptions,
+  sortOptions,
+  timeOptions,
+} from '@/types/reddit';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
-import { FormEvent, useState } from 'react';
-import { HiChevronRight } from 'react-icons/hi2';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from './ui/button';
+import { Form, FormControl, FormField, FormItem } from './ui/form';
+import { Input } from './ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
 
-export default function Form() {
+const formSchema = z.object({
+  subreddit: z.string(),
+});
+
+export default function SearchBar() {
   const router = useRouter();
-  const [selectedSort, setSelectedSort] = useState<SortOptions>('hot');
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const subreddit = event.currentTarget.subreddit.value;
-    const sort = event.currentTarget.sort.value;
-    const time = selectedSort == 'top' && event.currentTarget.time.value;
+  const currentSubreddit = router.asPath.split('/')[2] ?? 'earthporn';
 
-    router.push(`/r/${subreddit}/${sort}${time ? `?t=${time}` : ''}`);
+  const [sort, setSort] = useState<SortOptions>('Hot');
+  const [time, setTime] = useState<TimeOptions>('Day');
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    if (sort === 'Top') {
+      router.push(
+        `/r/${values.subreddit}/${sort.toLowerCase()}?t=${time.toLowerCase()}`,
+      );
+    } else {
+      router.push(`/r/${values.subreddit}`);
+    }
+  }
+
+  function onSortChange(sort: SortOptions) {
+    setSort(sort);
+    if (sort === 'Top') {
+      router.push(
+        `/r/${currentSubreddit}/${sort.toLowerCase()}?t=${time.toLowerCase()}`,
+      );
+    } else {
+      router.push(`/r/${currentSubreddit}/${sort.toLowerCase()}`);
+    }
+  }
+
+  function onTimeChange(time: TimeOptions) {
+    setTime(time);
+    router.push(
+      `/r/${currentSubreddit}/${sort.toLowerCase()}?t=${time.toLowerCase()}`,
+    );
   }
 
   return (
-    <form
-      className='sticky inset-0 z-10 flex items-baseline gap-1 p-4 backdrop-blur'
-      onSubmit={handleSubmit}
-    >
-      <p className='font-medium'>r/</p>
-      <input
-        id='subreddit'
-        className='h-8 w-full rounded-lg px-2 py-1 placeholder:text-neutral-400'
-        placeholder='subreddit'
-        required
-      />
+    <div className='flex flex-col gap-4 p-4'>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className='flex items-center gap-2'
+        >
+          <div className='grow'>
+            <FormField
+              control={form.control}
+              name='subreddit'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      className='rounded-lg border-2 bg-black'
+                      aria-label='Subreddit name'
+                      placeholder='earthporn'
+                      type='search'
+                      required
+                      aria-describedby={undefined}
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
 
-      <select
-        id='sort'
-        className='h-8 rounded-lg py-1 pl-2'
-        onChange={(event) =>
-          setSelectedSort(event.currentTarget.value as SortOptions)
-        }
-      >
-        {sortOptions.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
+          <Button type='submit'>Submit</Button>
+        </form>
+      </Form>
 
-      <select
-        id='time'
-        className='h-8 rounded-lg py-1 pl-2'
-        disabled={selectedSort !== 'top'}
-      >
-        {timeOptions.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-      <button className='h-8 w-12 self-center rounded-lg bg-neutral-700 px-2 py-1'>
-        <HiChevronRight aria-label='Search' className='m-auto text-lg' />{' '}
-      </button>
-    </form>
+      <div className='z-50 flex items-baseline gap-2'>
+        <h2 className='font-semibold'>
+          <a
+            className='hover:underline'
+            target='_blank'
+            href={`https://www.reddit.com/r/${currentSubreddit}`}
+          >
+            r/{currentSubreddit}
+          </a>{' '}
+        </h2>
+        <Select value={sort} onValueChange={onSortChange}>
+          <SelectTrigger className='w-24' defaultValue='hot'>
+            <SelectValue placeholder='Sort' />
+          </SelectTrigger>
+          <SelectContent>
+            {sortOptions.map((sort) => (
+              <SelectItem key={sort} value={sort}>
+                {sort}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {sort === 'Top' && (
+          <Select value={time} onValueChange={onTimeChange}>
+            <SelectTrigger className='w-24'>
+              <SelectValue placeholder='Time' />
+            </SelectTrigger>
+            <SelectContent>
+              {timeOptions.map((time) => (
+                <SelectItem className='capitalize' key={time} value={time}>
+                  {time}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+    </div>
   );
 }
