@@ -17,7 +17,12 @@ export default function Subreddit({
   const { isFallback, query } = useRouter();
   const { slug, t } = query as { slug: string[]; t: TimeOptions | undefined };
 
-  if (isFallback) return <p>Loading...</p>;
+  if (isFallback)
+    return (
+      <p className='flex min-h-screen animate-pulse items-center justify-center'>
+        Loading...
+      </p>
+    );
 
   return (
     <Layout
