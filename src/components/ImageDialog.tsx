@@ -1,6 +1,7 @@
 import { parseRedditPostMedia } from '@/lib/reddit/parse';
 import { RedditPost } from '@/types/reddit';
 import { Dialog } from '@headlessui/react';
+import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { HiArrowLeft, HiArrowRight, HiXMark } from 'react-icons/hi2';
 
@@ -61,13 +62,13 @@ export default function ImageDialog({
     switch (postMedia!.hint) {
       case 'image':
         return (
-          <picture>
-            <img
-              className='max-h-screen'
-              src={postMedia?.mediaUrls[imageIndex]}
-              alt={post.title}
-            />
-          </picture>
+          <Image
+            className='m-auto !h-fit !max-h-screen !w-fit object-contain'
+            src={postMedia!.mediaUrls[imageIndex]}
+            alt={post.title}
+            fill
+            unoptimized
+          />
         );
       case 'hosted:video':
         return (
@@ -100,7 +101,7 @@ export default function ImageDialog({
     >
       <Dialog.Panel>
         <button
-          className='absolute right-0 top-0 m-2 rounded-full bg-black/50 p-2 md:p-4'
+          className='absolute right-0 top-0 z-50 m-2 rounded-full bg-black/50 p-2 md:p-4'
           aria-label='Close dialog'
           onClick={onClose}
         >
@@ -109,7 +110,7 @@ export default function ImageDialog({
 
         {imageIndex > 0 && (
           <button
-            className='absolute left-0 top-1/2 ml-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
+            className='absolute left-0 top-1/2 z-50 ml-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
             aria-label='Go to previous image'
             onClick={goToPreviousImage}
           >
@@ -119,7 +120,7 @@ export default function ImageDialog({
 
         {imageIndex < postMedia?.mediaUrls.length! - 1 && (
           <button
-            className='absolute right-0 top-1/2 mr-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
+            className='absolute right-0 top-1/2 z-50 mr-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
             aria-label='Go to next image'
             onClick={goToNextImage}
           >
@@ -127,7 +128,7 @@ export default function ImageDialog({
           </button>
         )}
 
-        <div className='absolute bottom-0 left-0 h-fit w-full bg-black/80 p-4 text-center'>
+        <div className='absolute bottom-0 left-0 z-50 h-fit w-full bg-black/80 p-4 text-center'>
           <a
             className='hover:underline'
             href={'https://www.reddit.com' + post.permalink}

@@ -1,5 +1,6 @@
 import { parseRedditPostMedia } from '@/lib/reddit/parse';
 import { RedditPost } from '@/types/reddit';
+import Image from 'next/image';
 
 type PostCardProps = {
   post: RedditPost;
@@ -12,18 +13,17 @@ export default function PostCard({ post, onClick }: PostCardProps) {
   return (
     <article className='flex flex-col'>
       <button
-        className='aspect-video overflow-clip rounded-lg transition hover:opacity-50'
+        className='relative aspect-video overflow-clip rounded-lg transition hover:opacity-50'
         aria-label={`Open post titled: ${post.title}`}
         onClick={onClick}
       >
-        <picture>
-          <img
-            loading='lazy'
-            className='h-full w-full object-cover'
-            src={postMedia?.thumbnailUrl}
-            alt={post.title}
-          />
-        </picture>
+        <Image
+          className='object-cover'
+          src={postMedia!.thumbnailUrl}
+          fill
+          alt={post.title}
+          unoptimized
+        />
       </button>
 
       <div className='p-2'>
