@@ -12,7 +12,7 @@ export default function PostCard({ post, onClick }: PostCardProps) {
   return (
     <article className='flex flex-col'>
       <button
-        className='aspect-video overflow-clip rounded-lg border-2 border-white border-opacity-0 transition hover:border-opacity-100 hover:opacity-50'
+        className='aspect-video overflow-clip rounded-lg transition hover:opacity-50'
         aria-label={`Open post titled: ${post.title}`}
         onClick={onClick}
       >
