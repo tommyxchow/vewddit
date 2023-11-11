@@ -27,17 +27,21 @@ const formSchema = z.object({
 export default function SearchBar() {
   const router = useRouter();
 
-  const currentSubreddit = router.asPath.split('/')[2] ?? 'earthporn';
+  const currentSubreddit = (router.query.slug?.[0] as string) ?? 'earthporn';
+  const currentSort = (router.query.slug?.[1] as SortOptions) ?? 'hot';
+  const currentTime = (router.query.t as TimeOptions) ?? 'day';
 
-  const [sort, setSort] = useState<SortOptions>('Hot');
-  const [time, setTime] = useState<TimeOptions>('Day');
+  console.log(currentSort, currentTime);
+
+  const [sort, setSort] = useState<SortOptions>(currentSort);
+  const [time, setTime] = useState<TimeOptions>(currentTime);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if (sort === 'Top') {
+    if (sort === 'top') {
       router.push(
         `/r/${values.subreddit}/${sort.toLowerCase()}?t=${time.toLowerCase()}`,
       );
@@ -48,7 +52,7 @@ export default function SearchBar() {
 
   function onSortChange(sort: SortOptions) {
     setSort(sort);
-    if (sort === 'Top') {
+    if (sort === 'top') {
       router.push(
         `/r/${currentSubreddit}/${sort.toLowerCase()}?t=${time.toLowerCase()}`,
       );
@@ -124,7 +128,7 @@ export default function SearchBar() {
             </SelectContent>
           </Select>
 
-          {sort === 'Top' && (
+          {sort === 'top' && (
             <Select value={time} onValueChange={onTimeChange}>
               <SelectTrigger className='w-24 bg-black'>
                 <SelectValue placeholder='Time' />
