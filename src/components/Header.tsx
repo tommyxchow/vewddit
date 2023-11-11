@@ -9,7 +9,7 @@ export default function Header() {
         </h1>
       </Link>
 
-      <div className='flex flex-col justify-between text-sm text-neutral-400 md:flex-row md:text-base'>
+      <div className='flex flex-col justify-between text-sm text-gray-400 md:flex-row md:text-base'>
         <p>A minimal way to browse media on Reddit</p>
 
         <p>

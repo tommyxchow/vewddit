@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className='flex justify-between p-4 text-sm text-neutral-400 md:p-8'>
+    <footer className='flex justify-between p-4 text-sm text-gray-400 md:p-8'>
       <p>
         designed and developed by{' '}
         <a

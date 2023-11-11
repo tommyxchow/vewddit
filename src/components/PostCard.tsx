@@ -38,7 +38,7 @@ export default function PostCard({ post, onClick }: PostCardProps) {
         </h2>
         <p>
           <a
-            className='text-neutral-400 hover:underline'
+            className='text-gray-400 hover:underline'
             target='_blank'
             href={`https://www.reddit.com/user/${post.author}`}
           >
