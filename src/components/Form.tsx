@@ -79,7 +79,7 @@ export default function SearchBar() {
                 <FormItem>
                   <FormControl>
                     <Input
-                      className='rounded-lg border-2 bg-black'
+                      className='bg-black'
                       aria-label='Subreddit name'
                       placeholder='Enter a subreddit name'
                       type='search'
@@ -99,7 +99,7 @@ export default function SearchBar() {
         </form>
       </Form>
 
-      <div className='z-50 flex items-center justify-between gap-2'>
+      <div className='flex items-center justify-between gap-2'>
         <h2 className='truncate text-xl font-semibold sm:text-3xl'>
           <a
             className='hover:underline'
@@ -131,7 +131,7 @@ export default function SearchBar() {
               </SelectTrigger>
               <SelectContent>
                 {timeOptions.map((time) => (
-                  <SelectItem className='capitalize' key={time} value={time}>
+                  <SelectItem key={time} value={time}>
                     {time}
                   </SelectItem>
                 ))}
