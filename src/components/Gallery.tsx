@@ -69,9 +69,9 @@ export default function Gallery({
   const alertMessageClassName = 'px-4';
 
   if (status === 'pending')
-    return <p className={alertMessageClassName}>Loading...</p>;
+    return <p className={alertMessageClassName}>loading posts..</p>;
   if (status === 'error')
-    return <p className={alertMessageClassName}>Failed to get posts</p>;
+    return <p className={alertMessageClassName}>failed to get posts :(</p>;
 
   const postsWithMedia = data.pages
     .map((page) => page.posts)
@@ -79,7 +79,7 @@ export default function Gallery({
     .filter(hasProperMedia);
 
   if (postsWithMedia.length === 0 && !hasNextPage)
-    return <p className={alertMessageClassName}>No posts found</p>;
+    return <p className={alertMessageClassName}>no posts found :(</p>;
 
   return (
     <>

@@ -20,7 +20,7 @@ export default function Subreddit({
   if (isFallback)
     return (
       <p className='flex min-h-screen animate-pulse items-center justify-center'>
-        Loading...
+        loading posts...
       </p>
     );
 

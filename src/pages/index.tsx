@@ -10,8 +10,8 @@ type HomeProps = {
 const Home: NextPage<HomeProps> = ({ subredditPosts }) => {
   return (
     <Layout
-      title='Vewddit'
-      description='A minimal way to browse media on Reddit'
+      title='vewddit'
+      description='a minimal way to browse media on Reddit'
     >
       <Gallery subreddit='earthporn' initialPosts={subredditPosts} />
     </Layout>

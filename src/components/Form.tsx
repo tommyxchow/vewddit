@@ -85,7 +85,7 @@ export default function SearchBar() {
                     <Input
                       className='bg-black'
                       aria-label='Subreddit name'
-                      placeholder='Enter a subreddit name'
+                      placeholder='enter a subreddit name'
                       type='search'
                       required
                       aria-describedby={undefined}
@@ -98,7 +98,7 @@ export default function SearchBar() {
           </div>
 
           <Button className='w-24' type='submit'>
-            Submit
+            submit
           </Button>
         </form>
       </Form>
