@@ -66,7 +66,7 @@ export default function ImageDialog({
           <Image
             // Use !important to override the default classes from the Image
             // component when the fill prop is used.
-            className='m-auto !h-fit max-h-screen !w-fit'
+            className='m-auto !h-fit max-h-screen !w-fit object-contain'
             src={postMedia!.mediaUrls[imageIndex]}
             alt={post.title}
             fill
@@ -140,7 +140,7 @@ export default function ImageDialog({
           {renderContent()}
         </div>
 
-        <div className='z-50 flex flex-col gap-8 overflow-auto border-t border-gray-800 bg-black p-8 lg:w-[400px] lg:border-l'>
+        <div className='z-50 flex max-h-[33vh] flex-col gap-8 overflow-auto border-t border-gray-800 bg-black p-8 lg:max-h-none lg:w-[400px] lg:border-l'>
           <div className='flex flex-col gap-2'>
             <Dialog.Title className='text-xl font-bold'>
               {post.title}
