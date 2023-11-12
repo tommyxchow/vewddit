@@ -4,6 +4,7 @@ import { Dialog } from '@headlessui/react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { HiArrowLeft, HiArrowRight, HiXMark } from 'react-icons/hi2';
+import { Summary } from './Summary';
 
 type ImageDialogProps = {
   post: RedditPost;
@@ -139,13 +140,17 @@ export default function ImageDialog({
           {renderContent()}
         </div>
 
-        <div className='z-50 flex flex-col gap-4 border-t border-gray-800 bg-black p-8 lg:w-[350px] lg:border-l'>
-          <Dialog.Title className='text-xl font-bold'>
-            {post.title}
-          </Dialog.Title>
-          <Dialog.Description>
-            Posted by u/{post.author} in r/{post.subreddit}
-          </Dialog.Description>
+        <div className='z-50 flex flex-col gap-8 overflow-auto border-t border-gray-800 bg-black p-8 lg:w-[400px] lg:border-l'>
+          <div className='flex flex-col gap-2'>
+            <Dialog.Title className='text-xl font-bold'>
+              {post.title}
+            </Dialog.Title>
+            <Dialog.Description className='text-gray-400'>
+              from u/{post.author} in r/{post.subreddit}
+            </Dialog.Description>
+          </div>
+
+          <Summary post={post} />
         </div>
       </Dialog.Panel>
     </Dialog>
