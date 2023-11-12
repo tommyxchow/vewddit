@@ -63,17 +63,20 @@ export default function ImageDialog({
       case 'image':
         return (
           <Image
-            className='m-auto !h-fit !max-h-screen !w-fit object-contain'
+            // Use !important to override the default classes from the Image
+            // component when the fill prop is used.
+            className='m-auto !h-fit max-h-screen !w-fit'
             src={postMedia!.mediaUrls[imageIndex]}
             alt={post.title}
             fill
             unoptimized
+            onClick={(event) => event.stopPropagation()}
           />
         );
       case 'hosted:video':
         return (
           <video
-            className='max-h-screen'
+            className='absolute h-full max-h-fit w-full max-w-fit'
             autoPlay
             loop
             muted
@@ -81,6 +84,7 @@ export default function ImageDialog({
             disableRemotePlayback
             controls
             src={postMedia?.mediaUrls[0]}
+            onClick={(event) => event.stopPropagation()}
           />
         );
       case 'rich:video':
@@ -95,51 +99,54 @@ export default function ImageDialog({
 
   return (
     <Dialog
-      className='fixed inset-0 z-50 flex w-full items-center justify-center bg-black/80 backdrop-blur'
+      className='fixed inset-0 z-50 bg-black/50 backdrop-blur duration-200 ease-out animate-in fade-in'
       open
       onClose={onClose}
     >
-      <Dialog.Panel>
-        <button
-          className='absolute right-0 top-0 z-50 m-2 rounded-full bg-black/50 p-2 md:p-4'
-          aria-label='Close dialog'
+      <Dialog.Panel className='flex h-full w-full flex-col lg:flex-row'>
+        <div
+          className='relative flex grow items-center justify-center'
           onClick={onClose}
         >
-          <HiXMark className='text-2xl md:text-3xl' />
-        </button>
-
-        {imageIndex > 0 && (
           <button
-            className='absolute left-0 top-1/2 z-50 ml-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
-            aria-label='Go to previous image'
-            onClick={goToPreviousImage}
+            className='absolute right-0 top-0 z-50 m-2 rounded-full bg-black/50 p-2 md:p-4'
+            aria-label='Close dialog'
+            onClick={onClose}
           >
-            <HiArrowLeft className='text-2xl md:text-3xl' />
+            <HiXMark className='text-2xl md:text-3xl' />
           </button>
-        )}
 
-        {imageIndex < postMedia?.mediaUrls.length! - 1 && (
-          <button
-            className='absolute right-0 top-1/2 z-50 mr-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
-            aria-label='Go to next image'
-            onClick={goToNextImage}
-          >
-            <HiArrowRight className='text-2xl md:text-3xl' />
-          </button>
-        )}
+          {imageIndex > 0 && (
+            <button
+              className='absolute left-0 top-1/2 z-50 ml-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
+              aria-label='Go to previous image'
+              onClick={goToPreviousImage}
+            >
+              <HiArrowLeft className='text-2xl md:text-3xl' />
+            </button>
+          )}
 
-        <div className='absolute bottom-0 left-0 z-50 h-fit w-full bg-black/80 p-4 text-center'>
-          <a
-            className='hover:underline'
-            href={'https://www.reddit.com' + post.permalink}
-            target='_blank'
-            rel='noreferrer'
-          >
-            <h1 className='font-medium md:text-lg'>{post.title}</h1>
-          </a>
+          {imageIndex < postMedia?.mediaUrls.length! - 1 && (
+            <button
+              className='absolute right-0 top-1/2 z-50 mr-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
+              aria-label='Go to next image'
+              onClick={goToNextImage}
+            >
+              <HiArrowRight className='text-2xl md:text-3xl' />
+            </button>
+          )}
+
+          {renderContent()}
         </div>
 
-        {renderContent()}
+        <div className='z-50 flex flex-col gap-4 border-t border-gray-800 bg-black p-8 lg:w-[350px] lg:border-l'>
+          <Dialog.Title className='text-xl font-bold'>
+            {post.title}
+          </Dialog.Title>
+          <Dialog.Description>
+            Posted by u/{post.author} in r/{post.subreddit}
+          </Dialog.Description>
+        </div>
       </Dialog.Panel>
     </Dialog>
   );
