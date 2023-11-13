@@ -1,27 +1,37 @@
-# Next.js + Tailwind CSS Example
+# [vewddit](https://vewddit.vercel.app/)
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+<div>
+    <img width='49%' src='https://github.com/tommyxchow/vewddit/assets/54859075/9cabee37-9e4d-491a-8a4c-9d39e42a7c00'>
+    <img width='49%' src='https://github.com/tommyxchow/vewddit/assets/54859075/1dfe939f-5558-402e-9440-93f734e22d3d'>
+</div>
 
-## Deploy your own
+A web app for Reddit focused on browsing visual media.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## Background
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+I wanted to build something related to Reddit since I use it on a daily basis. I occasionally go on Reddit to grab wallpapers for my phone and desktop, so I decided to make a web app focused on the browsing the visual media without the noise of votes, awards, comments, etc.
 
-## How to use
+## Stack
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+- [Next.js](https://nextjs.org/) (pages router)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Headless UI](https://headlessui.com/) (dialog)
+- [React/Tanstack Query](https://tanstack.com/query/latest)
+- [Vercel AI SDK](https://sdk.vercel.ai/docs) (OpenAI comment summaries)
+- [Vercel](https://vercel.com/) (deployment and edge functions)
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
+## Setup
+
+Sign up for the Reddit and OpenAI APIs. Get your credentials and set them in the environment variables:
+
+```plaintext
+# .env.local
+REDDIT_CLIENT_ID=
+REDDIT_SECRET=
+OPENAI_API_KEY=
 ```
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+## License
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+vewddit is licensed under [MIT](LICENSE).
