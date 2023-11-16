@@ -1,6 +1,6 @@
 import { SubredditPosts } from '@/lib/reddit/api';
 import { hasProperMedia } from '@/lib/reddit/parse';
-import { SortOptions, TimeOptions } from '@/types/reddit';
+import { SortOption, TimeOption } from '@/types/reddit';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import ImageDialog from './ImageDialog';
@@ -9,8 +9,8 @@ import PostCard from './PostCard';
 interface GalleryProps {
   subreddit: string;
   initialPosts?: SubredditPosts;
-  sort?: SortOptions;
-  time?: TimeOptions;
+  sort?: SortOption;
+  time?: TimeOption;
 }
 
 export default function Gallery({
