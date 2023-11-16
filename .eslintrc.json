@@ -11,5 +11,11 @@
   "ignorePatterns": ["**/*.js", "/src/components/ui/**"],
   "parserOptions": {
     "project": true
+  },
+  "rules": {
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      { "checksVoidReturn": { "attributes": false } }
+    ]
   }
 }
