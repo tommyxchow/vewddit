@@ -2,11 +2,11 @@ import Head from 'next/head';
 import SearchBar from './Form';
 import Header from './Header';
 
-type LayoutProps = {
+interface LayoutProps {
   title: string;
   description: string;
   children: React.ReactNode;
-};
+}
 
 export default function Layout({ title, description, children }: LayoutProps) {
   return (
@@ -20,7 +20,7 @@ export default function Layout({ title, description, children }: LayoutProps) {
 
       <Header />
 
-      <div className='sticky inset-0 z-40 bg-black bg-opacity-50 backdrop-blur'>
+      <div className='sticky inset-0 z-40 bg-black/50 backdrop-blur'>
         <SearchBar />
       </div>
 

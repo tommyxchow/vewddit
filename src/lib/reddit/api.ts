@@ -5,17 +5,24 @@ import {
   TimeOptions,
 } from '@/types/reddit';
 
-type AccessToken = {
+interface AccessToken {
   access_token: string;
   token_type: string;
   expires_in: number;
   scope: string;
-};
+}
 
-export type SubredditPosts = {
+interface RedditPostsResponse {
+  data: {
+    children: { data: RedditPost }[];
+    after: string;
+  };
+}
+
+export interface SubredditPosts {
   after: string;
   posts: RedditPost[];
-};
+}
 
 export class RedditClient {
   constructor(private token: string) {}
@@ -35,7 +42,7 @@ export class RedditClient {
     });
 
     if (response.ok) {
-      const data: AccessToken = await response.json();
+      const data = (await response.json()) as AccessToken;
 
       return new RedditClient(data.access_token);
     } else {
@@ -66,18 +73,18 @@ export class RedditClient {
 
     const response = await this.get(endpoint);
 
-    if (response.ok) {
-      const data = await response.json();
-
-      const after: string = data.data.after;
-
-      const posts: RedditPost[] = data.data.children.map(
-        (post: { data: RedditPost }) => RedditPostSchema.parse(post.data),
+    if (!response.ok) {
+      throw new Error(
+        `HTTP Error: ${response.status} - ${response.statusText}`,
       );
-
-      return { after, posts };
-    } else {
-      throw Error(response.statusText);
     }
+
+    const data = (await response.json()) as RedditPostsResponse;
+
+    const posts: RedditPost[] = data.data.children.map(
+      (post: { data: RedditPost }) => RedditPostSchema.parse(post.data),
+    );
+
+    return { after: data.data.after, posts };
   }
 }

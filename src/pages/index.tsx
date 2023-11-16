@@ -3,9 +3,9 @@ import Layout from '@/components/Layout';
 import { RedditClient, SubredditPosts } from '@/lib/reddit/api';
 import type { GetStaticProps, NextPage } from 'next';
 
-type HomeProps = {
+interface HomeProps {
   subredditPosts: SubredditPosts;
-};
+}
 
 const Home: NextPage<HomeProps> = ({ subredditPosts }) => {
   return (
