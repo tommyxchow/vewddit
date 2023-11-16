@@ -1,6 +1,6 @@
 import {
-  SortOptions,
-  TimeOptions,
+  SortOption,
+  TimeOption,
   sortOptions,
   timeOptions,
 } from '@/types/reddit';
@@ -28,11 +28,11 @@ export default function SearchBar() {
   const router = useRouter();
 
   const currentSubreddit = router.query.slug?.[0] ?? 'earthporn';
-  const currentSort = (router.query.slug?.[1] as SortOptions) ?? 'hot';
-  const currentTime = (router.query.t as TimeOptions) ?? 'day';
+  const currentSort = (router.query.slug?.[1] as SortOption) ?? 'hot';
+  const currentTime = (router.query.t as TimeOption) ?? 'day';
 
-  const [sort, setSort] = useState<SortOptions>(currentSort);
-  const [time, setTime] = useState<TimeOptions>(currentTime);
+  const [sort, setSort] = useState<SortOption>(currentSort);
+  const [time, setTime] = useState<TimeOption>(currentTime);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,7 +48,7 @@ export default function SearchBar() {
     }
   }
 
-  async function onSortChange(sort: SortOptions) {
+  async function onSortChange(sort: SortOption) {
     setSort(sort);
     if (sort === 'top') {
       await router.push(
@@ -59,7 +59,7 @@ export default function SearchBar() {
     }
   }
 
-  async function onTimeChange(time: TimeOptions) {
+  async function onTimeChange(time: TimeOption) {
     setTime(time);
     await router.push(
       `/r/${currentSubreddit}/${sort.toLowerCase()}?t=${time.toLowerCase()}`,

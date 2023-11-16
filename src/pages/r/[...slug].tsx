@@ -1,7 +1,7 @@
 import Gallery from '@/components/Gallery';
 import Layout from '@/components/Layout';
 import { RedditClient, SubredditPosts } from '@/lib/reddit/api';
-import { SortOptions, TimeOptions } from '@/types/reddit';
+import { SortOption, TimeOption } from '@/types/reddit';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
@@ -15,7 +15,7 @@ export default function Subreddit({
   subredditPosts,
 }: SubredditProps) {
   const { isFallback, query } = useRouter();
-  const { slug, t } = query as { slug: string[]; t: TimeOptions | undefined };
+  const { slug, t } = query as { slug: string[]; t: TimeOption | undefined };
 
   if (isFallback)
     return (
@@ -32,7 +32,7 @@ export default function Subreddit({
       <Gallery
         subreddit={subreddit}
         initialPosts={t === undefined ? subredditPosts : undefined}
-        sort={slug[1] as SortOptions}
+        sort={slug[1] as SortOption}
         time={t}
       />
     </Layout>
@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps<SubredditProps> = async ({
     const { slug } = params as { slug: string[] };
 
     const subreddit = slug[0];
-    const sort = slug[1] as SortOptions;
+    const sort = slug[1] as SortOption;
 
     const client = await RedditClient.create();
     const subredditPosts = await client.getPosts(subreddit, sort);

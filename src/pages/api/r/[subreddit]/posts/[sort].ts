@@ -1,6 +1,6 @@
 import { RedditClient, SubredditPosts } from '@/lib/reddit/api';
 import ErrorMessage from '@/types/error';
-import { SortOptions, TimeOptions } from '@/types/reddit';
+import { SortOption, TimeOption } from '@/types/reddit';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -14,8 +14,8 @@ export default async function handler(
 
     const posts = await reddit.getPosts(
       subreddit as string,
-      sort as SortOptions,
-      t as TimeOptions,
+      sort as SortOption,
+      t as TimeOption,
       after as string,
     );
 

@@ -1,8 +1,8 @@
 import {
   RedditPost,
   RedditPostSchema,
-  SortOptions,
-  TimeOptions,
+  SortOption,
+  TimeOption,
 } from '@/types/reddit';
 
 interface AccessToken {
@@ -63,8 +63,8 @@ export class RedditClient {
 
   async getPosts(
     subreddit: string,
-    sort?: SortOptions,
-    time?: TimeOptions,
+    sort?: SortOption,
+    time?: TimeOption,
     after?: string,
   ): Promise<SubredditPosts> {
     const endpoint = `/r/${subreddit}${
