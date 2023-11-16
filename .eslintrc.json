@@ -8,7 +8,7 @@
     "plugin:tailwindcss/recommended",
     "prettier"
   ],
-  "ignorePatterns": ["**/*.js"],
+  "ignorePatterns": ["**/*.js", "/src/components/ui/**"],
   "parserOptions": {
     "project": true
   }
