@@ -1,17 +1,17 @@
 import { parseRedditPostMedia } from '@/lib/reddit/parse';
-import { RedditPost } from '@/types/reddit';
+import { type RedditPost } from '@/types/reddit';
 import { Dialog } from '@headlessui/react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { HiArrowLeft, HiArrowRight, HiXMark } from 'react-icons/hi2';
 import { Summary } from './Summary';
 
-type ImageDialogProps = {
+interface ImageDialogProps {
   post: RedditPost;
   goToPreviousPost: () => void;
   goToNextPost: () => void;
   onClose: () => void;
-};
+}
 
 export default function ImageDialog({
   post,
@@ -23,6 +23,10 @@ export default function ImageDialog({
 
   const [imageIndex, setImageIndex] = useState(0);
 
+  const maxImageIndex = postMedia?.mediaUrls
+    ? postMedia.mediaUrls.length - 1
+    : 0;
+
   const goToPreviousImage = useCallback(() => {
     if (imageIndex > 0) {
       setImageIndex(imageIndex - 1);
@@ -30,10 +34,10 @@ export default function ImageDialog({
   }, [imageIndex]);
 
   const goToNextImage = useCallback(() => {
-    if (imageIndex < postMedia?.mediaUrls.length! - 1) {
+    if (imageIndex < maxImageIndex) {
       setImageIndex(imageIndex + 1);
     }
-  }, [imageIndex, postMedia?.mediaUrls.length]);
+  }, [imageIndex, maxImageIndex]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -89,12 +93,13 @@ export default function ImageDialog({
           />
         );
       case 'rich:video':
-      case 'link':
-        return (
-          <div
-            dangerouslySetInnerHTML={{ __html: post.media_embed?.content! }}
-          />
-        );
+      case 'link': {
+        const mediaContent = post.media_embed?.content
+          ? { __html: post.media_embed?.content }
+          : undefined;
+
+        return <div dangerouslySetInnerHTML={mediaContent} />;
+      }
     }
   }
 
@@ -105,10 +110,9 @@ export default function ImageDialog({
       onClose={onClose}
     >
       <Dialog.Panel className='flex h-full w-full flex-col lg:flex-row'>
-        <div
-          className='relative flex grow items-center justify-center'
-          onClick={onClose}
-        >
+        <div className='relative flex grow items-center justify-center'>
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+          <div className='absolute inset-0' onClick={onClose} />
           <button
             className='absolute right-0 top-0 z-50 m-2 rounded-full bg-black/50 p-2 md:p-4'
             aria-label='Close dialog'
@@ -127,7 +131,7 @@ export default function ImageDialog({
             </button>
           )}
 
-          {imageIndex < postMedia?.mediaUrls.length! - 1 && (
+          {imageIndex < maxImageIndex && (
             <button
               className='absolute right-0 top-1/2 z-50 mr-2 -translate-y-1/2 rounded-full bg-black/50 p-2 md:p-4'
               aria-label='Go to next image'

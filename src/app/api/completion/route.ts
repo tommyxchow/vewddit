@@ -8,32 +8,33 @@ const openai = new OpenAI({
 });
 
 export async function POST(req: Request) {
-  const { prompt } = await req.json();
+  const { prompt } = (await req.json()) as { prompt: string };
 
-  const redditPostURL = `${prompt as string}.json`;
+  const redditPostURL = `${prompt}.json`;
 
   const redditPostData = await fetch(redditPostURL);
-  const [post, comments] = await redditPostData.json();
+  const [postData, commentsData] = (await redditPostData.json()) as [
+    RedditPostData,
+    RedditCommentData,
+  ];
 
-  const postData: RedditPostData = post['data']['children'][0];
-  const commentsData: RedditCommentData[] = comments['data']['children'];
+  const post = postData.data.children[0];
+  const comments = commentsData.data.children;
 
   const redditPostDetails: RedditPostDetails = {
     postDetails: {
-      subredditName: postData.data.subreddit,
-      title: postData.data.title,
-      score: postData.data.score,
-      upvoteRatio: postData.data.upvote_ratio,
+      subredditName: post.data.subreddit,
+      title: post.data.title,
+      score: post.data.score,
+      upvoteRatio: post.data.upvote_ratio,
     },
-    comments: parseComments(commentsData).slice(0, 100),
+    comments: parseComments(comments).slice(0, 100),
   };
-
-  console.log(redditPostDetails);
 
   const response = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo-1106',
     stream: true,
-    max_tokens: 300,
+    max_tokens: 512,
     temperature: 0.8,
     messages: [
       {
@@ -63,7 +64,7 @@ sure to write it in a way that is easy to scan and understand quickly.
   return new StreamingTextResponse(stream);
 }
 
-function parseComments(comments: RedditCommentData[]): RedditCommentParsed[] {
+function parseComments(comments: RedditComment[]): RedditCommentParsed[] {
   const parsedComments: RedditCommentParsed[] = [];
 
   for (const comment of comments) {
@@ -89,17 +90,23 @@ function parseComments(comments: RedditCommentData[]): RedditCommentParsed[] {
   return parsedComments;
 }
 
-type RedditPostData = {
+interface RedditPostData {
   kind: string;
   data: {
-    subreddit: string;
-    title: string;
-    score: number;
-    upvote_ratio: number;
+    children: {
+      kind: string;
+      data: {
+        subreddit: string;
+        title: string;
+        score: number;
+        upvote_ratio: number;
+      };
+    }[];
   };
-};
+}
 
-type RedditCommentData = {
+interface RedditComment {
+  kind: string;
   data: {
     name: string;
     parent_id: string;
@@ -109,22 +116,29 @@ type RedditCommentData = {
     depth: number;
     replies?: {
       data: {
-        children: RedditCommentData[];
+        children: RedditComment[];
       };
     };
   };
-};
+}
 
-type RedditCommentParsed = {
+interface RedditCommentData {
+  kind: string;
+  data: {
+    children: RedditComment[];
+  };
+}
+
+interface RedditCommentParsed {
   id: string;
   parentId: string;
   author: string;
   text: string;
   score: number;
   depth: number;
-};
+}
 
-type RedditPostDetails = {
+interface RedditPostDetails {
   postDetails: {
     subredditName: string;
     title: string;
@@ -132,4 +146,4 @@ type RedditPostDetails = {
     upvoteRatio: number;
   };
   comments: RedditCommentParsed[];
-};
+}

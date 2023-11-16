@@ -27,11 +27,9 @@ const formSchema = z.object({
 export default function SearchBar() {
   const router = useRouter();
 
-  const currentSubreddit = (router.query.slug?.[0] as string) ?? 'earthporn';
+  const currentSubreddit = router.query.slug?.[0] ?? 'earthporn';
   const currentSort = (router.query.slug?.[1] as SortOptions) ?? 'hot';
   const currentTime = (router.query.t as TimeOptions) ?? 'day';
-
-  console.log(currentSort, currentTime);
 
   const [sort, setSort] = useState<SortOptions>(currentSort);
   const [time, setTime] = useState<TimeOptions>(currentTime);
@@ -40,30 +38,30 @@ export default function SearchBar() {
     resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     if (sort === 'top') {
-      router.push(
+      await router.push(
         `/r/${values.subreddit}/${sort.toLowerCase()}?t=${time.toLowerCase()}`,
       );
     } else {
-      router.push(`/r/${values.subreddit}`);
+      await router.push(`/r/${values.subreddit}`);
     }
   }
 
-  function onSortChange(sort: SortOptions) {
+  async function onSortChange(sort: SortOptions) {
     setSort(sort);
     if (sort === 'top') {
-      router.push(
+      await router.push(
         `/r/${currentSubreddit}/${sort.toLowerCase()}?t=${time.toLowerCase()}`,
       );
     } else {
-      router.push(`/r/${currentSubreddit}/${sort.toLowerCase()}`);
+      await router.push(`/r/${currentSubreddit}/${sort.toLowerCase()}`);
     }
   }
 
-  function onTimeChange(time: TimeOptions) {
+  async function onTimeChange(time: TimeOptions) {
     setTime(time);
-    router.push(
+    await router.push(
       `/r/${currentSubreddit}/${sort.toLowerCase()}?t=${time.toLowerCase()}`,
     );
   }

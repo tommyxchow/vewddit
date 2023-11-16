@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react';
 import ImageDialog from './ImageDialog';
 import PostCard from './PostCard';
 
-type GalleryProps = {
+interface GalleryProps {
   subreddit: string;
   initialPosts?: SubredditPosts;
   sort?: SortOptions;
   time?: TimeOptions;
-};
+}
 
 export default function Gallery({
   subreddit,
@@ -31,7 +31,7 @@ export default function Gallery({
     fetch(
       `/api/r/${subreddit}/posts${
         sort ? `/${sort}` : ''
-      }?raw_json=1&t=${time}&after=${after}`,
+      }?raw_json=1&t=${time}&after=${after as string}`,
     ).then((res) => res.json());
 
   const {
@@ -39,7 +39,6 @@ export default function Gallery({
     error,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
     status,
   } = useInfiniteQuery<SubredditPosts>({
@@ -58,7 +57,9 @@ export default function Gallery({
   useEffect(() => {
     if (hasNextPage) {
       const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !isFetchingNextPage) fetchNextPage();
+        if (entries[0].isIntersecting && !isFetchingNextPage) {
+          void fetchNextPage();
+        }
       });
       observer.observe(document.getElementById('gallery-end')!);
 
@@ -71,7 +72,11 @@ export default function Gallery({
   if (status === 'pending')
     return <p className={alertMessageClassName}>loading posts..</p>;
   if (status === 'error')
-    return <p className={alertMessageClassName}>failed to get posts :(</p>;
+    return (
+      <p className={alertMessageClassName}>
+        failed to get posts: {error.message}
+      </p>
+    );
 
   const postsWithMedia = data.pages
     .map((page) => page.posts)
@@ -98,7 +103,7 @@ export default function Gallery({
       )}
 
       <div className='flex flex-col items-center gap-8 px-4'>
-        <div className='lg:grid-col-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+        <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {postsWithMedia.map((post, index) => (
             <div className='duration-500 animate-in fade-in' key={post.id}>
               <PostCard post={post} onClick={() => handlePostClick(index)} />
