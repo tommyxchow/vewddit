@@ -1,3 +1,15 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "eslint:recommended",
+    "plugin:jsx-a11y/recommended",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:tailwindcss/recommended",
+    "prettier"
+  ],
+  "ignorePatterns": ["**/*.js"],
+  "parserOptions": {
+    "project": true
+  }
 }
