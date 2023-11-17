@@ -12,6 +12,7 @@
     "prettier"
   ],
   "rules": {
+    "jsx-a11y/control-has-associated-label": "warn",
     "@typescript-eslint/no-misused-promises": [
       "error",
       { "checksVoidReturn": { "attributes": false } }
