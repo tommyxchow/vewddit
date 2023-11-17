@@ -114,7 +114,11 @@ export default function SearchBar() {
 
         <div className='flex gap-2'>
           <Select value={sort} onValueChange={onSortChange}>
-            <SelectTrigger className='w-24 bg-black' defaultValue='hot'>
+            <SelectTrigger
+              className='w-24 bg-black'
+              defaultValue='hot'
+              aria-label='Sort'
+            >
               <SelectValue placeholder='Sort' />
             </SelectTrigger>
             <SelectContent>
@@ -128,7 +132,7 @@ export default function SearchBar() {
 
           {sort === 'top' && (
             <Select value={time} onValueChange={onTimeChange}>
-              <SelectTrigger className='w-24 bg-black'>
+              <SelectTrigger className='w-24 bg-black' aria-label='Time'>
                 <SelectValue placeholder='Time' />
               </SelectTrigger>
               <SelectContent>
