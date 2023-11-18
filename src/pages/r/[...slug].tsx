@@ -1,8 +1,8 @@
 import Gallery from '@/components/Gallery';
 import Layout from '@/components/Layout';
-import { RedditClient, SubredditPosts } from '@/lib/reddit/api';
-import { SortOption, TimeOption } from '@/types/reddit';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { RedditClient, type SubredditPosts } from '@/lib/reddit/api';
+import { type SortOption, type TimeOption } from '@/types/reddit';
+import { type GetStaticPaths, type GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
 interface SubredditProps {

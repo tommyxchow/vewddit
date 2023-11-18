@@ -1,6 +1,6 @@
-import { SubredditPosts } from '@/lib/reddit/api';
+import { type SubredditPosts } from '@/lib/reddit/api';
 import { hasProperMedia } from '@/lib/reddit/parse';
-import { SortOption, TimeOption } from '@/types/reddit';
+import { type SortOption, type TimeOption } from '@/types/reddit';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import ImageDialog from './ImageDialog';

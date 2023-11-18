@@ -1,6 +1,6 @@
 import {
-  SortOption,
-  TimeOption,
+  type SortOption,
+  type TimeOption,
   sortOptions,
   timeOptions,
 } from '@/types/reddit';

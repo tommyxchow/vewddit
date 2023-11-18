@@ -13,6 +13,10 @@
   ],
   "rules": {
     "jsx-a11y/control-has-associated-label": "warn",
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      { "fixStyle": "inline-type-imports" }
+    ],
     "@typescript-eslint/no-misused-promises": [
       "error",
       { "checksVoidReturn": { "attributes": false } }

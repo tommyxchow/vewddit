@@ -1,5 +1,5 @@
-import { RedditClient, SubredditPosts } from '@/lib/reddit/api';
-import ErrorMessage from '@/types/error';
+import { RedditClient, type SubredditPosts } from '@/lib/reddit/api';
+import type ErrorMessage from '@/types/error';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(

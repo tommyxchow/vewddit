@@ -1,6 +1,6 @@
-import { RedditClient, SubredditPosts } from '@/lib/reddit/api';
-import ErrorMessage from '@/types/error';
-import { SortOption, TimeOption } from '@/types/reddit';
+import { RedditClient, type SubredditPosts } from '@/lib/reddit/api';
+import type ErrorMessage from '@/types/error';
+import { type SortOption, type TimeOption } from '@/types/reddit';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(

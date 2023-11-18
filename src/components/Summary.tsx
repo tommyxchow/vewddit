@@ -1,4 +1,4 @@
-import { RedditPost } from '@/types/reddit';
+import { type RedditPost } from '@/types/reddit';
 import { useCompletion } from 'ai/react';
 
 interface SummaryProps {

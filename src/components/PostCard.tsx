@@ -1,5 +1,5 @@
 import { parseRedditPostMedia } from '@/lib/reddit/parse';
-import { RedditPost } from '@/types/reddit';
+import { type RedditPost } from '@/types/reddit';
 import Image from 'next/image';
 
 interface PostCardProps {

@@ -1,8 +1,8 @@
 import {
-  RedditPost,
+  type RedditPost,
   RedditPostSchema,
-  SortOption,
-  TimeOption,
+  type SortOption,
+  type TimeOption,
 } from '@/types/reddit';
 
 interface AccessToken {
