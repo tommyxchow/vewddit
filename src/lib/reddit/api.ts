@@ -1,6 +1,6 @@
 import {
-  type RedditPost,
   RedditPostSchema,
+  type RedditPost,
   type SortOption,
   type TimeOption,
 } from '@/types/reddit';

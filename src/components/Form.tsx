@@ -1,8 +1,8 @@
 import {
-  type SortOption,
-  type TimeOption,
   sortOptions,
   timeOptions,
+  type SortOption,
+  type TimeOption,
 } from '@/types/reddit';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
