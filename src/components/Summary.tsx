@@ -20,7 +20,7 @@ export function Summary({ post }: SummaryProps) {
         <div className='h-48 overflow-auto rounded-xl border-2 border-gray-900 bg-gray-950 p-4 lg:h-full'>
           {!completion && (
             <button
-              className='w-full rounded-lg bg-gray-900 px-4 py-2 font-semibold disabled:animate-pulse'
+              className='w-full rounded-lg border-2 border-transparent bg-gray-900 px-4 py-2 font-semibold transition-colors hover:border-gray-800 active:bg-gray-800 disabled:animate-pulse'
               disabled={isLoading}
               onClick={handleOnClick}
             >
