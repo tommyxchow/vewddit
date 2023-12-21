@@ -4,10 +4,11 @@ import Image from 'next/image';
 
 interface PostCardProps {
   post: RedditPost;
+  priority?: boolean;
   onClick: () => void;
 }
 
-export default function PostCard({ post, onClick }: PostCardProps) {
+export default function PostCard({ post, priority, onClick }: PostCardProps) {
   const postMedia = parseRedditPostMedia(post);
 
   return (
@@ -18,6 +19,7 @@ export default function PostCard({ post, onClick }: PostCardProps) {
         onClick={onClick}
       >
         <Image
+          priority={priority}
           className='rounded-lg object-cover '
           src={postMedia!.thumbnailUrl}
           fill
