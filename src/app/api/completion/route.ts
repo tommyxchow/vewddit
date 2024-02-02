@@ -32,7 +32,7 @@ export async function POST(req: Request) {
   };
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo-1106',
+    model: 'gpt-3.5-turbo-0125',
     stream: true,
     max_tokens: 512,
     temperature: 0.8,
